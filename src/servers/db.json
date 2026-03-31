@@ -1,10 +1,18 @@
 {
     "people": [
-        {
-        "id": 1,
-        "firstname": "John",
-        "lastname": "doe",
-        "email": "email@emnail.com"
-        }
+      {
+        "id": "1",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john.doe@email.com",
+        "phone": "(11) 99999-9999"
+      },
+      {
+        "id": "2",
+        "firstName": "Maria",
+        "lastName": "Silva",
+        "email": "maria@email.com",
+        "phone": "(21) 88888-8888"
+      }
     ]
-}
+  }

@@ -1,25 +1,37 @@
-function cardPersonal({ name, email, phone }) {
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import styles from '../styles/styles';
+import { deletePerson } from '../servers/peopleCrud';
+
+function CardPersonal({ item, navigation, refresh }) {
     return(
-        <view style={styles.card}>
-            <view>
-                <text style={styles.name}>
+        <View style={styles.card}>
+            <View>
+                <Text style={styles.name}>
                     {item.firstName} {item.lastName} 
-                </text>
+                </Text>
 
-                <text style={styles.email}>
+                <Text style={styles.email}>
                     {item.email}
-                </text>
-            </view>
+                </Text>
+                
+                <Text style={styles.email}>
+                    {item.phone}
+                </Text>
+            </View>
 
-            <view>
-                <button title="editar" onPress={() => 
+            <View>
+                <Button title="editar" onPress={() => 
                     {navigation.navigate("addEdit", {person: item})}} />
 
-                <button title="deletar" 
+                <Button title="deletar" 
                     onPress={async ()=>{ 
                         await deletePerson(item.id);
-                        refresh();}}/>
-            </view>
-        </view>
+                        refresh();
+                    }}/>
+            </View>
+        </View>
     );
 }
+
+export default CardPersonal;

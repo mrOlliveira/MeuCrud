@@ -3,7 +3,7 @@ import { View, TextInput, Button } from "react-native";
 
 import styles from "../styles/styles";
 
-import { createPerson, updatePerson } from "../servers/peopleCrudx";
+import { createPerson, updatePerson } from "../servers/peopleCrud";
 
 export default function AddEditScreen({ route, navigation }) {
 
@@ -12,28 +12,22 @@ export default function AddEditScreen({ route, navigation }) {
   const [firstName, setFirstName] = useState(person?.firstName || "");
   const [lastName, setLastName] = useState(person?.lastName || "");
   const [email, setEmail] = useState(person?.email || "");
+  const [phone, setPhone] = useState(person?.phone || "");
 
   async function save(){
-
-    const data = { firstName, lastName, email };
+    const data = { firstName, lastName, email, phone };
 
     if(person){
-
       await updatePerson(person.id, data);
-
-    }else{
-
+    } else {
       await createPerson(data);
-
     }
 
     navigation.goBack();
   }
 
-return(
-
+  return(
     <View style={styles.container}>
-
       <TextInput
         placeholder="First Name"
         value={firstName}
@@ -50,6 +44,14 @@ return(
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
+        keyboardType="email-address"
+      />
+
+      <TextInput
+        placeholder="Phone"
+        value={phone}
+        onChangeText={setPhone}
+        keyboardType="phone-pad"
       />
 
       <Button
@@ -61,7 +63,6 @@ return(
         title="Cancelar"
         onPress={() => navigation.goBack()}
       />
-
     </View>
   );
 }

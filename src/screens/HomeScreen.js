@@ -1,9 +1,12 @@
-import react, { useEffect, useState } from "react";
+import React, { useState, useCallback } from "react";
 import { View, Text, FlatList, Button } from "react-native";
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import CardPersonal from '../components/CardPersonal';
 import styles from "../styles/styles";
-import { getPeople, deletePerson } from "../servers/peopleCrud";
+import { getPeople } from "../servers/peopleCrud";
 
 export default function HomeScreen(){
+    const navigation = useNavigation();
     const [people, setPeople] = useState([]);
 
     async function loadPeople(){
@@ -15,25 +18,21 @@ export default function HomeScreen(){
         }   
     };
 
-    useEffect(() => {
-        loadPeople();
-    }, []);
-
     return(
-        <view style={styles.container}>
-            <text style={styles.title}>Pessoas</text>
-            <Button title="adicionar pessoas" onPress={() => {navigation.navigate("addEdit")}} />
+        <View style={styles.container}>
+            <Text style={styles.title}>Pessoas</Text>
+            <Button title="adicionar pessoas" onPress={() => navigation.navigate("addEdit")} />
             <FlatList
                 data={people}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <cardPersonal
+                    <CardPersonal 
                         item={item}
                         navigation={navigation}
                         refresh={loadPeople}
                     />
                 )}
             />
-        </view>
+        </View>
     );
 }
